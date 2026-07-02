@@ -8,12 +8,12 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'confirm_password']
+        fields = ['username', 'password', 'password_confirm']
 
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
-        password_confirm = cleaned_data.get('password_confirmed')
+        password_confirm = cleaned_data.get('password_confirm')
 
         # Checking if passwords matches
         if password and password_confirm and password != password_confirm:

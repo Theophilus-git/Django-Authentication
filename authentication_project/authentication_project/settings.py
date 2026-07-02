@@ -122,3 +122,7 @@ STATIC_URL = 'static/'
 STATICFILESDIRS = (
     os.path.join(BASE_DIR, 'static')
 )
+
+
+# redirection to the home page after login
+LOGIN_REDIRECT_URL = 'home'

@@ -31,8 +31,8 @@ def login_view(request):
         
         else:
             error_message = "Invalid Credentials!"
-
-    return render(request, 'accounts/login.html', {'error':error_message})
+            context = {'error':error_message}
+    return render(request, 'accounts/login.html', context)
 
 # Protected view
 class ProtectedView(LoginRequiredMixin, View):
@@ -44,7 +44,7 @@ class ProtectedView(LoginRequiredMixin, View):
         return render(request, 'registration/protected.html')
 
 
-#Logout view page
+#Logout view page  
 def logout_view(request):
     if request.method=="POST":
         logout(request)
@@ -71,4 +71,4 @@ def register_view(request):
             form = RegisterForm()
         context = {'form':form}
         return render(request, 'accounts/register.html', context)
-
+    
