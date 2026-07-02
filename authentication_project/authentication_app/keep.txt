@@ -1,0 +1,24 @@
+from django.shortcuts import render, redirect # This handle views and redirects
+from django.contrib.auth import authenticate,login,logout # This import authentication function forms
+from django.contrib.auth.decorators import login_required # This protect views
+from django.contrib.auth.mixins import LoginRequiredMixin # For class-based views
+from django.views import View
+from django.contrib.auth.models import User # This imports the user models
+from .forms import RegisterForm # This import the registerform from forms.py
+
+# The registration view
+def registration_view(request):
+    return render(request,)
+
+# The login page
+def login_view(request):
+    pass
+
+# The logout Page
+def logout_view(request):
+    pass
+
+# Rhe home page --> We will use the decorator here
+@login_required
+def home(request):
+    pass
