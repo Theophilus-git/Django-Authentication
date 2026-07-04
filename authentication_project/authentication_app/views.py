@@ -15,23 +15,26 @@ from django.contrib.auth.models import User
 # home page view
 @login_required
 def home_view(request):
-    return render(request,'home/home.html')
+    return render(request,'auth_1/home.html')
 
 # Login view
 def login_view(request):
+    error_message = None
+    
     if request.method=="POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, username=username,password=password)
 
-        if username is not None:
+        if user is not None:
             login(request, user)
             next_url = request.POST.get('next') or request.GET.get('next') or 'home'
             return redirect(next_url)
         
         else:
             error_message = "Invalid Credentials!"
-            context = {'error':error_message}
+
+    context = {'error': error_message}
     return render(request, 'accounts/login.html', context)
 
 # Protected view
@@ -64,11 +67,12 @@ def register_view(request):
         if form.is_valid():
             username= form.cleaned_data.get("username")
             password=form.cleaned_data.get("password")
-            user = user.objects.create_user(username=username, password=password)
+            user = User.objects.create_user(username=username, password=password)
             login(request,user)
             return redirect('home')
-        else:
-            form = RegisterForm()
-        context = {'form':form}
-        return render(request, 'accounts/register.html', context)
+    else:
+        form = RegisterForm()
+
+    context = {'form':form}
+    return render(request, 'accounts/register.html', context)
     
